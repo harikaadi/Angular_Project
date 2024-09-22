@@ -40,6 +40,9 @@ public class SecurityConfig {
                         .requestMatchers("/room/add").hasAnyRole("ADMIN")
                         .requestMatchers("/room/avail").hasAnyRole("ADMIN")
                         .requestMatchers("/addadmission/{patientid}/{issueName}/{roomtype}").hasAnyRole("PATIENT","ADMIN")
+                        .requestMatchers("/patient-opd/add").hasAnyRole("PATIENT", "ADMIN")
+                        .requestMatchers("/book-appointment/{patientId}/{doctorId}").hasAnyRole("PATIENT", "ADMIN")
+                        
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
