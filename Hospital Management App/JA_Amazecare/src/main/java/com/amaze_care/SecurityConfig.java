@@ -34,6 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/doctor/add").hasAnyRole("DOCTOR", "ADMIN")
                         .requestMatchers("/doctor/specialization/{specialization}").hasAnyRole("DOCTOR", "ADMIN")
                         .requestMatchers("/doctor/available").hasAnyRole("DOCTOR", "ADMIN")
+                        .requestMatchers("/doctor/schedule/add/{doctorId}").hasAnyRole("DOCTOR", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

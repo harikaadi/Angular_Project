@@ -11,6 +11,7 @@ import com.amaze_care.enums.Specialization;
 import com.amaze_care.exception.InvalidSpecializationException;
 import com.amaze_care.exception.NoDoctorsAvailableException;
 import com.amaze_care.model.Doctor;
+
 import com.amaze_care.model.UserInfo;
 import com.amaze_care.repo.DoctorRepository;
 import com.amaze_care.repo.UserRepository;
@@ -59,6 +60,8 @@ public class DoctorService {
         }
         return optionalDoctors.get();
     }
+
+	
     
     
 
