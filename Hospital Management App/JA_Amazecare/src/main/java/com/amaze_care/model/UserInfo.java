@@ -7,6 +7,11 @@ import jakarta.persistence.Id;
 
 @Entity
 public class UserInfo {
+	@Override
+	public String toString() {
+		return "UserInfo [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
+	}
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -31,6 +31,7 @@ public class DoctorService {
     public Doctor addDoctor(Doctor doctor) {
         // Detach user info from doctor
         UserInfo user = doctor.getUser();
+        System.out.println(user);
         user.setRole("ROLE_DOCTOR");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
