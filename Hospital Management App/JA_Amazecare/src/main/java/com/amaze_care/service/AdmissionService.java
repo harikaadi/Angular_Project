@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.amaze_care.enums.CommonHealthIssues;
+import com.amaze_care.enums.DoctorType;
 import com.amaze_care.enums.RoomType;
 import com.amaze_care.exception.InvalidIdException;
 import com.amaze_care.exception.NoRoomsAvailableException;
@@ -55,7 +57,7 @@ public class AdmissionService {
 		 System.out.println(" patient "+patient);
 		 
 	 //check whether healthissue exsits
-		 Optional <HealthIssue> optionhealthissue= healthissuerepo.findByIssueName(issueName);
+		/* Optional <HealthIssue> optionhealthissue= healthissuerepo.findByIssueName(issueName);
 		 if(optionhealthissue.isEmpty()) {
 			 throw new InvalidIdException("healthissue is invalid");
 		 }
@@ -67,7 +69,34 @@ public class AdmissionService {
 		Optional<Doctor> optiondoctor = doctorepo.findById(healthisuue.getDoctor().getId());
 		Doctor doctor =optiondoctor.get();
 		System.out.println("after doctor ");
-		 System.out.println("after doctor "+doctor);
+		 System.out.println("after doctor "+doctor);*/
+		 
+		 
+		 DoctorType doctorType = DoctorType.INPATIENT_DOCTOR;
+	        
+		 Optional<List<Doctor>> optiondoctor= doctorepo.findByHissueAndDoctortypeAndAvailable(issueName, doctorType, true);
+	        if (optiondoctor.isEmpty()) {
+	            throw new InvalidIdException("No available doctors found for the specified health issue.");
+	        }
+	        //Doctor doctor = optiondoctor.get().get(1);
+	        List<Doctor> listdoctor = optiondoctor.get();
+
+	     // Initialize variables to track the doctor with the minimum patients
+	     Doctor doctorWithMinPatients = listdoctor.get(0); // Default to the first doctor
+	     int minPatientCount = Integer.MAX_VALUE; // Set an initial high value for comparison
+
+	     // Loop through each doctor in the list and find the one with the least patients
+	     for (Doctor doctor : listdoctor) {
+	         // Assuming you have a method in your service/repository to count patients by doctorId
+	         int patientCount = admissionrepository.countPatientsByDoctorId(doctor.getId()); // Replace with actual method
+
+	         // Compare patient count and keep track of the doctor with the minimum patients
+	         if (patientCount < minPatientCount) {
+	             minPatientCount = patientCount;
+	             doctorWithMinPatients = doctor; // Assign the doctor with fewer patients
+	         }
+	        
+	     }
 		
 	// Convert roomTypeStr to RoomType enum
         /*RoomType roomType;
@@ -101,7 +130,7 @@ public class AdmissionService {
         
      // Set details on admission
         admission.setInpatient(patient);
-        admission.setDoctor(doctor);
+        admission.setDoctor(doctorWithMinPatients);
         admission.setRoom(selectedRoom);
         admission.setAdmissionDate(LocalDate.now());
         admission.setAdmissionStatus("admitted");

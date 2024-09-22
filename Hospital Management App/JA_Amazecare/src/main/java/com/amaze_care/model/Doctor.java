@@ -1,5 +1,7 @@
 package com.amaze_care.model;
 
+
+import com.amaze_care.enums.CommonHealthIssues;
 import com.amaze_care.enums.DoctorType;
 import com.amaze_care.enums.Specialization;
 
@@ -33,10 +35,13 @@ public class Doctor {
 	private String designation;
 	
 	private Boolean available;
-  
 
+  
     @OneToOne
     private UserInfo user;
+    
+    @Enumerated(EnumType.STRING)
+    private CommonHealthIssues hissue;
 
 
 	public int getId() {
