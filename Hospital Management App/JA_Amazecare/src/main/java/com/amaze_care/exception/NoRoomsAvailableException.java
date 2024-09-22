@@ -1,8 +1,6 @@
 package com.amaze_care.exception;
 
-public class NoDoctorsAvailableException extends Exception{
-	
-	
+public class NoRoomsAvailableException extends Exception{
 
 	/**
 	 * 
@@ -10,7 +8,7 @@ public class NoDoctorsAvailableException extends Exception{
 	private static final long serialVersionUID = 1L;
 	private String message;
 	
-	public NoDoctorsAvailableException(String message) {
+	public NoRoomsAvailableException(String message) {
 		super();
 		this.message = message;
 	}
