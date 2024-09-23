@@ -45,10 +45,12 @@ public InpatientTestResult addTestResult(MultipartFile file, int inpatienttestid
 		String filename = file.getOriginalFilename();
 		//creating new file
 		//File destinationfile = new File("C:/Users/Harika Adi/Desktop/A/hospital-amazecare-app/src/main/resources/static/" + filename);
+		//C:/Users/Harika Adi/Documents/GitHub/Angular_Project/Hospital Management App/JA_Amazecare/src/main/resources/static/reports/inpatients/
+		//C:/Users/Aarthi/Documents/GitHub/Angular_Project/Hospital Management App/JA_Amazecare/src/main/resources/static/reports/inpatients/
 		
-		File destinationfile = new File("C:/Users/Aarthi/Documents/GitHub/Angular_Project/Hospital Management App/JA_Amazecare/src/main/resources/static/reports/inpatients/" + filename);
+		File destinationfile = new File("C:/Users/Harika Adi/Documents/GitHub/Angular_Project/Hospital Management App/JA_Amazecare/src/main/resources/static/reports/inpatients/" + filename);
 		//creating new filestream
-		FileOutputStream fos = new FileOutputStream("C:/Users/Aarthi/Documents/GitHub/Angular_Project/Hospital Management App/JA_Amazecare/src/main/resources/static/reports/inpatients/" + filename);
+		FileOutputStream fos = new FileOutputStream("C:/Users/Harika Adi/Documents/GitHub/Angular_Project/Hospital Management App/JA_Amazecare/src/main/resources/static/reports/inpatients/" + filename);
 	 
         //save this in the DB
 		

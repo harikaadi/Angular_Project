@@ -41,7 +41,7 @@ public class OPDTestResultService {
         opdTestResult.setOpdTest(opdTest);
         
         String filename = file.getOriginalFilename();
-        File destinationFile = new File("C:/Users/Aarthi/Documents/GitHub/Angular_Project/Hospital Management App/JA_Amazecare/src/main/resources/static/reports/opd/" + filename);
+        File destinationFile = new File("C:/Users/Harika Adi/Documents/GitHub/Angular_Project/Hospital Management App/JA_Amazecare/src/main/resources/static/reports/OPD/" + filename);
         
         // Creating a new file stream
         try (FileOutputStream fos = new FileOutputStream(destinationFile)) {
