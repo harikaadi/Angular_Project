@@ -46,7 +46,8 @@ public class SecurityConfig {
                         .requestMatchers("/test/add").hasAnyRole("ADMIN","DOCTOR","EXECUTIVE")
                         .requestMatchers("/inpatient-test/add/{patientid}/{doctorid}/{testid}").hasAnyRole("ADMIN","DOCTOR","EXECUTIVE")
                         .requestMatchers("/testresult/add/{inpatienttestid}").hasAnyRole("ADMIN","DOCTOR","EXECUTIVE")
-                        
+                        .requestMatchers("/opd-test/add/{patientOPDId}/{doctorId}/{testId}").hasAnyRole("ADMIN","DOCTOR","EXECUTIVE")
+                        .requestMatchers("/opdtestresult/add/{opdTestId}").hasAnyRole("ADMIN","DOCTOR","EXECUTIVE")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
