@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/signup").permitAll()
                         .requestMatchers("/admin/hello").hasRole("ADMIN")
                         .requestMatchers("/user/hello").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/doctor/add").hasAnyRole("DOCTOR", "ADMIN")
                         .requestMatchers("/doctor/specialization/{specialization}").hasAnyRole("DOCTOR", "ADMIN")
                         .requestMatchers("/doctor/available").hasAnyRole("DOCTOR", "ADMIN")
