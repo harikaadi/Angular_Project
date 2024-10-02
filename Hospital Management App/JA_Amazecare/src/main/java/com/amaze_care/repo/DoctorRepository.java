@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.amaze_care.enums.CommonHealthIssues;
@@ -19,5 +20,9 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 	
 	 // Custom method to find doctors by health issue, doctor type, and availability
     Optional<List<Doctor>> findByHissueAndDoctortypeAndAvailable(CommonHealthIssues hissue, DoctorType doctortype, boolean available);
+
+    
+    @Query("select d from Doctor d where d.user.username=?1")
+	Optional<Doctor> getByUsername(String name);
 
 }

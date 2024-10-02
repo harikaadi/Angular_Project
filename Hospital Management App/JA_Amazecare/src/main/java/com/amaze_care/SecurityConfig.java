@@ -36,7 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/doctor/days").permitAll()
                         .requestMatchers("/doctor/specialization/{specialization}").hasAnyRole("DOCTOR", "ADMIN")
                         .requestMatchers("/doctor/available").hasAnyRole("DOCTOR", "ADMIN")
-                        .requestMatchers("/doctor/schedule/add/{doctorId}").hasAnyRole("DOCTOR", "ADMIN")
+                        .requestMatchers("/doctor/schedule/add").permitAll()
                         .requestMatchers("/inpatient/add").hasAnyRole("PATIENT", "ADMIN")
                         .requestMatchers("/healthissue/add").hasAnyRole("DOCTOR", "ADMIN")
                         .requestMatchers("/room/add").hasAnyRole("ADMIN")

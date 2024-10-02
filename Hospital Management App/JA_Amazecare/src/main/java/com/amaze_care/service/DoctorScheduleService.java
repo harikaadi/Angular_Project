@@ -24,25 +24,25 @@ public class DoctorScheduleService {
 	@Autowired
 	private DoctorScheduleRepository doctorScheduleRepository;
 
-	public DoctorSchedule addDoctorSchedule(int doctorId, DoctorSchedule doctorSchedule) throws InvalidIdException {
+	public DoctorSchedule addDoctorSchedule(String username, DoctorSchedule doctorSchedule) throws InvalidIdException {
 
-	    logger.info("Attempting to add schedule for doctor ID: " + doctorId);
+	    logger.info("Attempting to add schedule for doctor ID: " );
 
-	    Optional<Doctor> optional =  doctorRepository.findById(doctorId);
+	    Optional<Doctor> optional =  doctorRepository.getByUsername(username);
 	    if (optional.isEmpty()) {
-	        logger.error("Invalid Doctor ID: " + doctorId);
+	        logger.error("Invalid Doctor ID: " );
 	        throw new InvalidIdException("Doctor ID Invalid");
 	    }
 
 	    Doctor doctor = optional.get();
 	    doctorSchedule.setDoctor(doctor);
 	    
-	    logger.info("Doctor found: " + doctor.getName() + " (ID: " + doctorId + ")");
+	    logger.info("Doctor found: " + doctor.getName() + " (ID:");
 	    logger.info("Adding schedule: " + doctorSchedule);
 
 	    DoctorSchedule savedSchedule = doctorScheduleRepository.save(doctorSchedule);
 	    
-	    logger.info("Doctor schedule added successfully for doctor ID: " + doctorId);
+	    logger.info("Doctor schedule added successfully for doctor ID: " );
 	    
 	    return savedSchedule;
 	}
