@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.amaze_care.dto.MessageDto;
+import com.amaze_care.enums.Day;
 import com.amaze_care.enums.Specialization;
 import com.amaze_care.exception.InvalidSpecializationException;
 import com.amaze_care.exception.NoDoctorsAvailableException;
@@ -21,6 +23,7 @@ import com.amaze_care.model.Doctor;
 import com.amaze_care.service.DoctorService;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/doctor")
 public class DoctorController {
 	
@@ -64,5 +67,9 @@ public class DoctorController {
             return ResponseEntity.badRequest().body(messageDto);
         }
     }
+    @GetMapping("/days")
+	public List<Day> getAllDays(){
+		return List.of(Day.values());
+	}
 
 }
