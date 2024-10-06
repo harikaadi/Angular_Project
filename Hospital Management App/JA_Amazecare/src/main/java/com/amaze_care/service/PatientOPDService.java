@@ -28,16 +28,16 @@ public class PatientOPDService {
 	
 	 
 	 public PatientOPD addPatient(PatientOPD patientOPD) {
-	        // Detach user info from doctor
+	        // Detach user info from patient
 	        UserInfo user = patientOPD.getUser();
 	        System.out.println(user);
-	        user.setRole("ROLE_DOCTOR");
+	        user.setRole("ROLE_PATIENT");
 	        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
 	        // Save UserInfo first
 	        user = userRepository.save(user);
 
-	        // Attach the saved user back to doctor
+	        // Attach the saved user back to patient
 	        patientOPD.setUser(user);
 
 	        return patientOPDRepository.save(patientOPD);

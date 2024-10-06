@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.amaze_care.dto.MessageDto;
 import com.amaze_care.enums.Day;
+import com.amaze_care.enums.DoctorType;
 import com.amaze_care.enums.Specialization;
 import com.amaze_care.exception.InvalidSpecializationException;
 import com.amaze_care.exception.NoDoctorsAvailableException;
@@ -70,6 +71,18 @@ public class DoctorController {
     @GetMapping("/days")
 	public List<Day> getAllDays(){
 		return List.of(Day.values());
+	}
+    @GetMapping("/all")
+	public List<Doctor> getAll(){
+		return doctorService.getAll();
+	}
+    @GetMapping("/all/specialization")
+	public List<Specialization> getAllSpecialization(){
+		return List.of(Specialization.values());
+	}
+    @GetMapping("/type")
+	public List<DoctorType> getDoctorType(){
+		return List.of(DoctorType.values());
 	}
 
 }

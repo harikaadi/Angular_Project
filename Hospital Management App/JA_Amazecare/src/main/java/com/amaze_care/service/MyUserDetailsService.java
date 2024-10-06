@@ -27,6 +27,8 @@ public class MyUserDetailsService implements UserDetailsService {
         return new User(userInfo.getUsername(), userInfo.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(userInfo.getRole())));
     }
+
+	
 }
  
 

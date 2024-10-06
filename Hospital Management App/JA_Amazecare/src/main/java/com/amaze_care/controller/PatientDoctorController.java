@@ -1,7 +1,10 @@
 package com.amaze_care.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,27 +17,27 @@ import com.amaze_care.service.PatientDoctorService;
 import com.amaze_care.service.PatientOPDService;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class PatientDoctorController {
 	
-	@Autowired
-	private PatientOPDService patientOPDService;
+	
 	
 	@Autowired
 	private PatientDoctorService patientDoctorService;
 	
-	@PostMapping("/book-appointment/{patientId}/{doctorId}")
-	public ResponseEntity<?> bookAppointment(@PathVariable int patientId, 
+	@PostMapping("/book-appointment/{doctorId}")
+	public ResponseEntity<?> bookAppointment(Principal principal, 
 	                                         @PathVariable int doctorId, 
 	                                         @RequestBody PatientDoctor patientDoctor, 
 	                                         MessageDto messageDto) {
 	    try {
-	        // Call the service to book the appointment
-	        PatientDoctor bookedAppointment = patientDoctorService.bookAppointment(patientId, doctorId, patientDoctor);
-	        return ResponseEntity.ok(bookedAppointment);  // Return the booked PatientDoctor object
+	        
+	        PatientDoctor bookedAppointment = patientDoctorService.bookAppointment(principal, doctorId, patientDoctor);
+	        return ResponseEntity.ok(bookedAppointment); 
 	    } catch (AppointmentUnavailableException e) {
-	        // Set the error message in MessageDto
+	        
 	        messageDto.setMsg(e.getMessage());
-	        return ResponseEntity.badRequest().body(messageDto);  // Return the error message with bad request status
+	        return ResponseEntity.badRequest().body(messageDto); 
 	    }
 	}
 

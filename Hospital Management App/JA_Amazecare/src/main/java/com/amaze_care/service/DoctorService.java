@@ -61,6 +61,10 @@ public class DoctorService {
         return optionalDoctors.get();
     }
 
+    public List<Doctor> getAll() {
+		 
+		return doctorRepository.findAll();
+	}
 	
     
     

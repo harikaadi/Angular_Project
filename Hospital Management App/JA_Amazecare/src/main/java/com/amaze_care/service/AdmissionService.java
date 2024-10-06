@@ -1,5 +1,6 @@
 package com.amaze_care.service;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -45,10 +46,11 @@ public class AdmissionService {
 	private AdmissionRepository admissionrepository;
 	
 	
-	public Admission addAdmission(int patientid, CommonHealthIssues issueName, RoomType roomtype, Admission admission) throws InvalidIdException, NoRoomsAvailableException {
+	public Admission addAdmission(int patientid, String issueName, String roomtype, Admission admission) throws InvalidIdException, NoRoomsAvailableException {
 		System.out.println("inside add_admission service");
      //fetch patient by patientID
 		 Optional <InPatient> optionpatient = patientrepo.findById(patientid);
+		//Optional <InPatient> optionpatient = patientrepo.getByUsername(principal.getName());
 		 if(optionpatient.isEmpty()) {
 			 throw new InvalidIdException("patientid is invalid");
 		     }
@@ -73,9 +75,11 @@ public class AdmissionService {
 		 
 		 
 		 DoctorType doctorType = DoctorType.INPATIENT_DOCTOR;
+	     System.out.println(issueName);
+	     System.out.println(CommonHealthIssues.valueOf(issueName));
+		 Optional<List<Doctor>> optiondoctor= doctorepo.findByHissueAndDoctortypeAndAvailable(CommonHealthIssues.valueOf(issueName), doctorType, true);
 	        
-		 Optional<List<Doctor>> optiondoctor= doctorepo.findByHissueAndDoctortypeAndAvailable(issueName, doctorType, true);
-	        if (optiondoctor.isEmpty()) {
+		 if (optiondoctor.isEmpty()) {
 	            throw new InvalidIdException("No available doctors found for the specified health issue.");
 	        }
 	        //Doctor doctor = optiondoctor.get().get(1);
@@ -111,7 +115,7 @@ public class AdmissionService {
 		
 	//finding room
 		 System.out.println("romm"+roomtype);
-		List<Room> roomsavalible = roomrepo.findRoomAvailable(roomtype);
+		List<Room> roomsavalible = roomrepo.findRoomAvailable(RoomType.valueOf(roomtype));
 		if(roomsavalible.isEmpty()) {
 			throw new NoRoomsAvailableException("No available rooms found for the specified room type.");
 		}

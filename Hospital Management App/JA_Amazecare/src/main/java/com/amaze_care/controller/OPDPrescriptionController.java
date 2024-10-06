@@ -2,6 +2,7 @@ package com.amaze_care.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import com.amaze_care.service.OPDPrescriptionService;
 
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class OPDPrescriptionController {
 	
 	@Autowired
@@ -29,7 +31,6 @@ public class OPDPrescriptionController {
 	        MessageDto messageDto) {
 	    try {
 	        
-
 	        OPDPrescription savedPrescription = opdPrescriptionService.addPrescription(opdPatientId,doctorId,prescription);
 	        return ResponseEntity.ok(savedPrescription);
 	    } catch (Exception e) {

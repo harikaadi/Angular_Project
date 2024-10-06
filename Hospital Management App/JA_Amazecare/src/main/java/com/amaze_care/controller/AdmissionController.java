@@ -1,7 +1,10 @@
 package com.amaze_care.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +19,14 @@ import com.amaze_care.model.Admission;
 import com.amaze_care.service.AdmissionService;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class AdmissionController {
 	
 	@Autowired
 	private AdmissionService admissionservice;
 	
 	
-	@PostMapping("addadmission/{patientid}/{issueName}/{roomtype}")
+	/*@PostMapping("addadmission/{patientid}/{issueName}/{roomtype}")
 	public ResponseEntity<?> addAdmission(@PathVariable int patientid,@PathVariable CommonHealthIssues issueName, @PathVariable RoomType roomtype,@RequestBody Admission admission,MessageDto messagedto) {
 		//System.out.println("inside add_admission controller");
 		try {
@@ -37,6 +41,23 @@ public class AdmissionController {
 			return ResponseEntity.badRequest().body(e.getMessage()); 
 			//e.printStackTrace();
 		}	
+	}*/
+	
+	@PostMapping("addadmission/{patientid}/{issueName}/{roomtype}")
+	public ResponseEntity<?> addAdmission(@PathVariable int patientid,@PathVariable String issueName, @PathVariable String roomtype,@RequestBody Admission admission,MessageDto messagedto) {
+		//System.out.println("inside add_admission controller");
+		try {
+			admission = admissionservice.addAdmission(patientid,issueName,roomtype,admission);
+			return ResponseEntity.ok(admission); 
+		} catch (InvalidIdException e) {
+			// TODO Auto-generated catch block
+			return ResponseEntity.badRequest().body(e.getMessage()); 
+			//e.printStackTrace();
+		} catch (NoRoomsAvailableException e) {
+			// TODO Auto-generated catch block
+			return ResponseEntity.badRequest().body(e.getMessage()); 
+			//e.printStackTrace();
+		}	
 	}
-
+    
 }

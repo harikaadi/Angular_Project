@@ -1,12 +1,13 @@
 package com.amaze_care.service;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.amaze_care.exception.AppointmentUnavailableException;
@@ -18,18 +19,14 @@ import com.amaze_care.repo.DoctorRepository;
 import com.amaze_care.repo.DoctorScheduleRepository;
 import com.amaze_care.repo.PatientDoctorRepository;
 import com.amaze_care.repo.PatientOPDRepository;
-import com.amaze_care.repo.UserRepository;
 
 @Service
 public class PatientDoctorService {
 	@Autowired
 	private PatientOPDRepository patientOPDRepository;
+	//private PatientOPDRepository patientOPDRepository;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 	
-	@Autowired
-	private UserRepository userRepository;
 	
 	@Autowired
 	private DoctorRepository doctorRepository;
@@ -42,11 +39,14 @@ public class PatientDoctorService {
 	
 	
 
-public PatientDoctor bookAppointment(int patientId, int doctorId, PatientDoctor patientDoctor) throws AppointmentUnavailableException {
-	PatientOPD patientOPD =  patientOPDRepository.findById(patientId).get(); 
+public PatientDoctor bookAppointment(Principal principal, int doctorId, PatientDoctor patientDoctor) throws AppointmentUnavailableException {
+	
+	//PatientOPD patientOPD =  patientOPDRepository.findById(patientId).get(); 
+	Optional<PatientOPD> patientOPD = patientOPDRepository.getByUsername(principal.getName());
 	Doctor doctor =  doctorRepository.findById(doctorId).get(); 
+	
 	patientDoctor.setDoctor(doctor);
-	patientDoctor.setPatientOpd(patientOPD);
+	patientDoctor.setPatientOpd(patientOPD.get());
 	
 	
 	List<DoctorSchedule> doctorSchedule =  doctorScheduleRepository.getScheduleByDoctorId(doctorId);
